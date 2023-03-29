@@ -5,7 +5,7 @@ pragma solidity 0.8.18;
 contract TXOriginTest {
     uint256 result = 0;
 
-    function sub(uint256 a, uint256 b) external {
+    function add(uint256 a, uint256 b) external {
         if (isContract(msg.sender)) {
             revert("Contract size greater than 0.");
         }
@@ -26,15 +26,15 @@ contract TXOriginTest {
 }
 
 interface ITXOriginTest {
-    function sub(uint256 a, uint256 b) external;
+    function add(uint256 a, uint256 b) external;
 }
 
 contract Attack {
     constructor(address _contract) {
-        ITXOriginTest(_contract).sub(3, 5);
+        ITXOriginTest(_contract).add(3, 5);
     }
 
     function callOriginWithSize(address _contract) external {
-        ITXOriginTest(_contract).sub(3, 5);
+        ITXOriginTest(_contract).add(3, 5);
     }
 }
